@@ -1,0 +1,45 @@
+class Solution {
+public:
+//brutte force for each number check whether any nuberr is diff cur currennt and and calculate the max distance
+//O(N*N)
+// 1 8 3 8 3
+//op :4
+//i=0 j=1 dist =1 max: min,1=1
+//i=0, j=2 dist=2 max: 1,2=2
+//i=0, j=3 N0T VALID
+//i=0 , j=4 dist=4 max: 2,4=4
+    int maxDistance(vector<int>& colors) {
+  
+    int dist=0;
+    int ans=INT_MIN;
+    
+        for(int i=0;i<colors.size();i++){
+            for(int j=0;j<colors.size()-1;j++){
+                if(colors[i]!=colors[j]){
+               dist=abs(i-j);
+                }
+               
+               
+              ans=max(dist,ans);
+
+            }
+        }
+        return ans;
+        
+    }
+};
+ //O(n) O(1)
+ int n = colors.size();
+        int from_start = 0;    //first index from the start which is different from the last element
+        int from_end = n - 1;   //first index from the last which is different from the first element
+        while (colors[0] == colors[from_end])
+            from_end--;
+        while (colors[n - 1] == colors[from_start])
+            from_start++;
+        return max(from_end, n - from_start - 1);
+        
+        As we know that, there will be least two houses with different colors.
+//* The maximum distance will always include either first or the last house. 
+//* So in the first loop we find the leftmost house that has a different color from the last house.
+//* In the second loop we find the rightmost house that has a different color from the first house.
+//* return the minimum of both distances.
